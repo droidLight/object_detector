@@ -3,3 +3,6 @@ A Django web app with MaskRCNN model for object detection and segementation. Dev
 
 Place the weights for MaskRCNN inside detector/saved_models.
 https://download.pytorch.org/models/maskrcnn_resnet50_fpn_coco-bf2d0c1e.pth
+
+![alt text](https://github.com/droidLight/object_detector/blob/master/sample_pic_1.png)
+![alt text](https://github.com/droidLight/object_detector/blob/master/sample_pic_2.png)
