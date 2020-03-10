@@ -1,7 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import ImageUploadForm
-from .predictor import apply_bounds_masks
+from .predictor import apply_bounds_masks, savedImages
+
+def main_page(request):
+    context = {}
+    context['title'] = "Main Page"
+    context['images'] = savedImages()
+    return render(request, 'detector/main_page.html', context)
 
 def image_view(request):
 
@@ -10,14 +16,9 @@ def image_view(request):
     if request.method == "POST":
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            image = form.save()
-            output_name = form.cleaned_data.get('input_name')
-            #form.cleaned_data.get('input_image')
-            threshold = form.cleaned_data.get('input_threshold')
-            image = image.input_image.url
-            maskedImage, croppedList = apply_bounds_masks(image, threshold, output_name)
+            orgImage, maskedImage, croppedList = apply_bounds_masks(form)
 
-            context['org_image'] = image
+            context['org_image'] = orgImage
             context['masked_image'] = maskedImage
             context['cropped_images'] = croppedList
             context['result'] = True

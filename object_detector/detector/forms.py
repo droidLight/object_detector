@@ -5,4 +5,4 @@ class ImageUploadForm(forms.ModelForm):
 
     class Meta:
         model = ImageModel
-        fields = ['input_image', 'input_name', 'input_threshold']
+        fields = ['input_image', 'output_name', 'input_threshold']

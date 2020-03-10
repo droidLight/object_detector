@@ -22,7 +22,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', detectorViews.image_view, name='image_view')
+    #path('', detectorViews.main_page, name='main_page'),
+    path('', detectorViews.image_view, name='detector')
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

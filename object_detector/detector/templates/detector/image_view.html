@@ -1,44 +1,37 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <title>ImageView</title>
-    </head>
+{%extends "detector/base.html"%}
 
-    <body>
+{%block main_content%}
+    <center>
+        <form method="POST", enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class = "form-group">
+                <!--class = "control-label col-sm-2"-->
+                <label>Input Image:</label>
+                {{form.input_image}}
+            </div>
+            
+            <div class = "form-group">
+                <label>Output Folder Name:</label>
+                {{form.output_name}}
+            </div>
+            <div class="form-group">
+                <label>Threshold: </label>
+                {{form.input_threshold}}
+            </div>
+            <input type="submit" class = "btn-default" value="Upload Image">
+        </form>
+    </center>
+    <br>
+    {%if result%}
         <center>
-            <form method="POST", enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class = "form-group">
-                    <!--class = "control-label col-sm-2"-->
-                    <label>Input Image:</label>
-                    {{form.input_image}}
-                </div>
-                
-                <div class = "form-group">
-                    <label>Output Folder Name:</label>
-                    {{form.input_name}}
-                </div>
-                <div class="form-group">
-                    <label>Threshold: </label>
-                    {{form.input_threshold}}
-                </div>
-                <input type="submit" class = "btn-default" value="Upload Image">
-            </form>
-        </center>
-        <br>
-        {%if result%}
-            <center>
-                <img src="{{org_image}}"/>
-                <h2>Image after applying masks</h2>
-                <img src="{{masked_image}}"/>
+            <img src="{{org_image}}"/>
+            <h2>Image after applying masks</h2>
+            <img src="{{masked_image}}"/>
 
-                <h2>Cropped Images</h2>
-                {%for croppedURL in cropped_images%}
-                    <img src="{{croppedURL}}"/>
-                {%endfor%}
-            </center>
-        {%endif%}
-        
-    </body>
-</html>
+            <h2>Cropped Images</h2>
+            {%for croppedURL in cropped_images%}
+                <img src="{{croppedURL}}"/>
+            {%endfor%}
+        </center>
+    {%endif%}
+{%endblock main_content%}

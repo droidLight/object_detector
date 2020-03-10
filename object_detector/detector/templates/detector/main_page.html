@@ -1,0 +1,12 @@
+{%extends "detector/base.html"%}
+{%block main_content%}
+    <center><h2>List Of Images</h2></center>
+    <button href="detector">Detect Image</button>
+
+    {%for image in images%}
+        <div class="container" style="text-align: center">
+            <img src="{{image.input_image.url}}"/>
+            <p class="display-4">{{image.output_name}}</p>
+        </div>
+    {%endfor%}
+{%endblock%}

@@ -7,8 +7,24 @@ from .models import ImageModel
 import os
 import shutil
 
-def apply_bounds_masks(image_path, threshold, output_name):
-    image = cv.imread(settings.BASE_DIR + image_path, -1)
+def savedImages():
+    return ImageModel.objects.all()
+    
+
+def apply_bounds_masks(form):
+    output_name = form.cleaned_data.get('output_name')
+    threshold = form.cleaned_data.get('input_threshold')
+    
+    #create directory to save the images
+    image_path ="/media/masked_images/"+output_name
+    if os.path.exists(settings.BASE_DIR + image_path):
+        shutil.rmtree(settings.BASE_DIR + image_path)
+        ImageModel.objects.filter(output_name = output_name).delete()
+    os.makedirs(settings.BASE_DIR + image_path)
+    
+    imageObj = form.save()
+    input_image_path = imageObj.input_image.url
+    image = cv.imread(settings.BASE_DIR + input_image_path, -1)
 
     #preprocessing and converting to torch tensor
     print(f"Image shape: {image.shape} type: {type(image)}")
@@ -53,11 +69,6 @@ def apply_bounds_masks(image_path, threshold, output_name):
         croppedList.append(cv.bitwise_and(image.astype(np.int32), mask_rgb.astype(np.int32)))
         r.fill(0), g.fill(0), b.fill(0)
 
-    #create directory to save the images
-    image_path ="/media/masked_images/"+output_name
-    if os.path.exists(settings.BASE_DIR + image_path):
-        shutil.rmtree(settings.BASE_DIR + image_path)
-    os.makedirs(settings.BASE_DIR + image_path)
     
     #save the image with mask applied
     maskedImagePath = image_path + "/applied_masks.jpeg"
@@ -72,6 +83,6 @@ def apply_bounds_masks(image_path, threshold, output_name):
         cv.imwrite(settings.BASE_DIR + croppedImagePath, cropped)
     print("Saved masks")
 
-    return maskedImagePath, croppedListURL
+    return input_image_path, maskedImagePath, croppedListURL
 
 
