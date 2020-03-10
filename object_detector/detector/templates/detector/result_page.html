@@ -1,0 +1,17 @@
+{%extends "detector/base.html"%}
+{%block main_content%}
+    <center>
+        <img class="m-4" src="{{org_image}}"/>
+        <h2>Image after applying masks</h2>
+        <img class="m-4" src="{{masked_image}}"/>
+
+        <h2>Cropped Images</h2>
+        {%for key, value in cropped_images.items%}
+            <h4 class="m-2">{{key}}</h4>
+            {%for url in value%}
+                <image class="m-3" src="{{url}}"/>
+            {%endfor%}
+            <br>
+        {%endfor%}
+    </center>
+{%endblock%}

@@ -22,7 +22,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('', detectorViews.main_page, name='main_page'),
+    path('result/', detectorViews.result_page, name='result_page'),
     path('', detectorViews.image_view, name='detector')
 ]
 if settings.DEBUG:

@@ -21,17 +21,4 @@
             <input type="submit" class = "btn-default" value="Upload Image">
         </form>
     </center>
-    <br>
-    {%if result%}
-        <center>
-            <img src="{{org_image}}"/>
-            <h2>Image after applying masks</h2>
-            <img src="{{masked_image}}"/>
-
-            <h2>Cropped Images</h2>
-            {%for croppedURL in cropped_images%}
-                <img src="{{croppedURL}}"/>
-            {%endfor%}
-        </center>
-    {%endif%}
 {%endblock main_content%}
