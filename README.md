@@ -12,5 +12,5 @@ https://download.pytorch.org/models/maskrcnn_resnet50_fpn_coco-bf2d0c1e.pth
 2. clone the repo and install dependencies listed in requirements.txt by 'pip install -r requirements.txt'
 3. Copy the weights of the model into object_detector/object_detector/detector/saved_models/
 4. To start a local webserver run, 'python manage.py runserver'
-The app can be now accessed via browser in 127.0.0.1
+The app can be now accessed via browser on http://localhost:8000/ (by default)
 
